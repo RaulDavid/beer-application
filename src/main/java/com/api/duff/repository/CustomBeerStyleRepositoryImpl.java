@@ -25,12 +25,11 @@ public class CustomBeerStyleRepositoryImpl implements CustomBeerStyleRepository 
     @Override
     public Mono<BeerStyle> findByTemperature(int temperature) {
         Aggregation aggregation = newAggregation(
-                project( "avgTemperature")
+                project( "name", "maxGreatTemperature", "minGreatTemperature","avgTemperature")
                         .and(absoluteValueOf(Subtract.valueOf(temperature).subtract("avgTemperature"))).as("diff"),
                 sort(by("diff")),
                 limit(1L)
         );
-
         return mongoTemplate.aggregate(aggregation, "beer-styles", BeerStyle.class).elementAt(0);
     }
 }
