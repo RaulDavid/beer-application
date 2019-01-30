@@ -1,0 +1,4 @@
+mongodb:
+  embedded:
+    server:
+      port: 8090
