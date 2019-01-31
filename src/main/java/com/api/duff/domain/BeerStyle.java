@@ -18,19 +18,13 @@ public class BeerStyle implements Serializable {
 
     @Indexed
     private String name;
-    private int maxGreatTemperature;
-    private int minGreatTemperature;
-    private double avgTemperature;
+    private int maxTemperature;
+    private int minTemperature;
 
-    private BeerStyle(String name, int maxGreatTemperature, int minGreatTemperature) {
+    private BeerStyle(String name, int maxTemperature, int minTemperature) {
         this.name = name;
-        this.maxGreatTemperature = maxGreatTemperature;
-        this.minGreatTemperature = minGreatTemperature;
-        avgTemperature = calculateAvgTemperature(maxGreatTemperature, minGreatTemperature);
-    }
-
-    private double calculateAvgTemperature(int maxGreatTemperature, int minGreatTemperature) {
-        return (maxGreatTemperature + minGreatTemperature) / 2;
+        this.maxTemperature = maxTemperature;
+        this.minTemperature = minTemperature;
     }
 
     public static BeerStyle of(String name, int maxTemperature, int minTemperature) {
