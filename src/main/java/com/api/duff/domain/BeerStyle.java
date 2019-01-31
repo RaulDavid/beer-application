@@ -27,7 +27,7 @@ public class BeerStyle implements Serializable {
         this.minTemperature = minTemperature;
     }
 
-    public static BeerStyle of(String name, int maxTemperature, int minTemperature) {
+    public static BeerStyle beerStyleOf(String name, int maxTemperature, int minTemperature) {
         return new BeerStyle(name, maxTemperature, minTemperature);
     }
 }

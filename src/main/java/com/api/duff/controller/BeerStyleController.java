@@ -1,6 +1,7 @@
 package com.api.duff.controller;
 
 import com.api.duff.domain.BeerStyle;
+import com.api.duff.domain.PlaylistBeer;
 import com.api.duff.service.BeerStyleService;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -35,7 +36,7 @@ public class BeerStyleController {
 
     @ResponseStatus(OK)
     @GetMapping(value = "/beer-styles", params = "temperature")
-    public Mono<BeerStyle> getByTemperature(@RequestParam int temperature) {
+    public Mono<PlaylistBeer> getByTemperature(@RequestParam int temperature) {
         return service.findByTemperature(temperature);
     }
 

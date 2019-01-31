@@ -1,13 +1,13 @@
 package com.api.duff.repository;
 
 import com.api.duff.DuffApplicationTests;
-import com.api.duff.domain.BeerStyle;
 import org.junit.After;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
 
+import static com.api.duff.domain.BeerStyle.beerStyleOf;
 import static org.junit.Assert.assertEquals;
 
 
@@ -23,10 +23,10 @@ public class BeerStyleRepositoryIT extends DuffApplicationTests {
 
     @Test
     public void findByTemperatureShouldConsiderCloserAvgTemperature() {
-        var weissbier = BeerStyle.of("Weissbier", 10, -2);
-        var pilsen = BeerStyle.of("Pilsens", 10, -4);
-        var weizenbier = BeerStyle.of("Weizenbier", 10, -6);
-        var redAle = BeerStyle.of("Red ale", 10, -8);
+        var weissbier = beerStyleOf("Weissbier", 10, -2);
+        var pilsen = beerStyleOf("Pilsens", 10, -4);
+        var weizenbier = beerStyleOf("Weizenbier", 10, -6);
+        var redAle = beerStyleOf("Red ale", 10, -8);
         var beers = List.of(weissbier, pilsen, weizenbier, redAle);
 
         repository.saveAll(beers).collectList().block();
@@ -47,8 +47,8 @@ public class BeerStyleRepositoryIT extends DuffApplicationTests {
     @Test
     public void findByTemperatureShouldConsiderNameWhenTwoBeerStylesHaveSameAvgTemperature() {
         var beers = List.of(
-                BeerStyle.of("Pilsens", 4, -2),
-                BeerStyle.of("Weizenbier", 6, -4));
+                beerStyleOf("Pilsens", 4, -2),
+                beerStyleOf("Weizenbier", 6, -4));
 
         repository.saveAll(beers).collectList().block();
         int temperature = 2;

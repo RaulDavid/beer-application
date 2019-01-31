@@ -20,7 +20,7 @@ public class CustomBeerStyleRepositoryImpl implements CustomBeerStyleRepository 
     private static final String NAME_FIELD = "name";
     private static final String MAX_TEMPERATURE_FIELD = "maxTemperature";
     private static final String MIN_TEMPERATURE_FIELD = "minTemperature";
-    private static final String DIFFERENCE_BETWEEN_AVG = "differenceBetweenAvg";
+    private static final String DIFFERENCE_BETWEEN_AVG_FIELD = "differenceBetweenAvg";
     private static final long FIRST_ELEMENT = 1L;
     private static final String BEER_STYLES_COLLECTION = "beer-styles";
 
@@ -36,8 +36,8 @@ public class CustomBeerStyleRepositoryImpl implements CustomBeerStyleRepository 
         Aggregation aggregation = newAggregation(
                 project(getBeerStyleFields())
                         .and(getDifferenceOfAvg(temperature))
-                        .as(DIFFERENCE_BETWEEN_AVG),
-                sort(by(DIFFERENCE_BETWEEN_AVG, NAME_FIELD)),
+                        .as(DIFFERENCE_BETWEEN_AVG_FIELD),
+                sort(by(DIFFERENCE_BETWEEN_AVG_FIELD, NAME_FIELD)),
                 limit(FIRST_ELEMENT)
         );
         return mongoTemplate.aggregate(aggregation, BEER_STYLES_COLLECTION, BeerStyle.class).next();

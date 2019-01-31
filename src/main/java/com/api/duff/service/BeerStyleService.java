@@ -2,10 +2,13 @@ package com.api.duff.service;
 
 import com.api.duff.client.SpotifyClient;
 import com.api.duff.domain.BeerStyle;
+import com.api.duff.domain.PlaylistBeer;
 import com.api.duff.repository.BeerStyleRepository;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
+
+import static com.api.duff.domain.PlaylistBeer.playlistBeerOf;
 
 @Service
 public class BeerStyleService {
@@ -35,7 +38,11 @@ public class BeerStyleService {
         return repository.deleteById(id);
     }
 
-    public Mono<BeerStyle> findByTemperature(int temperature) {
-        return repository.findByTemperature(temperature);
+    public Mono<PlaylistBeer> findByTemperature(int temperature) {
+        return repository.findByTemperature(temperature)
+                .flatMap(beerStyle ->
+                        spotifyClient.getPlaylistByName(beerStyle.getName())
+                                .map(playlist -> playlistBeerOf(beerStyle, playlist))
+                );
     }
 }
