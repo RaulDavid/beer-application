@@ -1,5 +1,6 @@
 package com.api.duff.service;
 
+import com.api.duff.client.SpotifyClient;
 import com.api.duff.domain.BeerStyle;
 import com.api.duff.repository.BeerStyleRepository;
 import org.springframework.stereotype.Service;
@@ -10,9 +11,11 @@ import reactor.core.publisher.Mono;
 public class BeerStyleService {
 
     private final BeerStyleRepository repository;
+    private final SpotifyClient spotifyClient;
 
-    public BeerStyleService(BeerStyleRepository repository) {
+    public BeerStyleService(BeerStyleRepository repository, SpotifyClient spotifyClient) {
         this.repository = repository;
+        this.spotifyClient = spotifyClient;
     }
 
     public Flux<BeerStyle> getAll() {

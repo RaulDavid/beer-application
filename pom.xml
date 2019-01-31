@@ -48,14 +48,6 @@
 			<scope>test</scope>
 		</dependency>
 		<dependency>
-			<groupId>org.junit</groupId>
-			<artifactId>junit5-engine</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.modelmapper</groupId>
-			<artifactId>modelmapper</artifactId>
-		</dependency>
-		<dependency>
 			<groupId>se.michaelthelin.spotify</groupId>
 			<artifactId>spotify-web-api-java</artifactId>
 			<version>2.1.2</version>
