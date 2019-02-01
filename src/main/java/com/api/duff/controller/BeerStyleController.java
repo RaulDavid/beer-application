@@ -1,6 +1,6 @@
 package com.api.duff.controller;
 
-import com.api.duff.domain.BeerStyle;
+import com.api.duff.dto.BeerStyleDto;
 import com.api.duff.dto.PlaylistBeerDto;
 import com.api.duff.service.BeerStyleService;
 import lombok.extern.slf4j.Slf4j;
@@ -32,8 +32,10 @@ public class BeerStyleController {
 
     @ResponseStatus(OK)
     @GetMapping("/beer-styles")
-    public Flux<BeerStyle> getAllBeers() {
-        return service.getAll();
+    public Flux<BeerStyleDto> getAllBeers() {
+        return service.getAll()
+                .map(BeerStyleDto::beerStyleDtoOf)
+                .doOnError(e -> log.error("error mapping beer style dto, message={}", e.getMessage()));
     }
 
     @ResponseStatus(OK)
@@ -41,19 +43,25 @@ public class BeerStyleController {
     public Mono<PlaylistBeerDto> getByTemperature(@RequestParam int temperature) {
         return service.findByTemperature(temperature)
                 .map(PlaylistBeerDto::playlistBeerDtoOf)
-                .doOnError(e -> log.error("error mapping beer style, message={}", e.getMessage()));
+                .doOnError(e -> log.error("error mapping playlist beer dto, message={}", e.getMessage()));
     }
 
     @ResponseStatus(CREATED)
     @PostMapping("/beer-styles")
-    public Mono<BeerStyle> createBeerStyle(@RequestBody BeerStyle beerStyle) {
-        return service.create(beerStyle);
+    public Mono<BeerStyleDto> createBeerStyle(@RequestBody BeerStyleDto beerStyleDto) {
+        var beerStyle = beerStyleDto.toBeerStyle();
+        return service.create(beerStyle)
+                .map(BeerStyleDto::beerStyleDtoOf)
+                .doOnError(e -> log.error("error mapping beer style dto, message={}", e.getMessage()));
     }
 
     @ResponseStatus(OK)
     @PutMapping(value = "/beer-styles/{id}")
-    public Mono<BeerStyle> updateBeerStyleById(@PathVariable String id, @RequestBody BeerStyle beerStyle) {
-        return service.updateById(id, beerStyle);
+    public Mono<BeerStyleDto> updateBeerStyleById(@PathVariable String id, @RequestBody BeerStyleDto beerStyleDto) {
+        var beerStyle = beerStyleDto.toBeerStyle();
+        return service.updateById(id, beerStyle)
+                .map(BeerStyleDto::beerStyleDtoOf)
+                .doOnError(e -> log.error("error mapping beer style dto, message={}", e.getMessage()));
     }
 
     @ResponseStatus(NO_CONTENT)
