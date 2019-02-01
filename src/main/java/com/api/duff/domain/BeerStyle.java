@@ -8,6 +8,8 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.io.Serializable;
 
+import static java.util.Objects.requireNonNull;
+
 @Data
 @EqualsAndHashCode(of = "name")
 @Document("beer-styles")
@@ -17,9 +19,9 @@ public class BeerStyle implements Serializable {
     private String id;
 
     @Indexed
-    private String name;
-    private int maxTemperature;
-    private int minTemperature;
+    private final String name;
+    private final int maxTemperature;
+    private final int minTemperature;
 
     private BeerStyle(String name, int maxTemperature, int minTemperature) {
         this.name = name;
@@ -28,6 +30,7 @@ public class BeerStyle implements Serializable {
     }
 
     public static BeerStyle beerStyleOf(String name, int maxTemperature, int minTemperature) {
+        requireNonNull(name, "name must not be null");
         return new BeerStyle(name, maxTemperature, minTemperature);
     }
 }

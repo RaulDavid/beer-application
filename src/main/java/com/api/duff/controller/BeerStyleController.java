@@ -1,8 +1,9 @@
 package com.api.duff.controller;
 
 import com.api.duff.domain.BeerStyle;
-import com.api.duff.domain.PlaylistBeer;
+import com.api.duff.dto.PlaylistBeerDto;
 import com.api.duff.service.BeerStyleService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -19,6 +20,7 @@ import static org.springframework.http.HttpStatus.CREATED;
 import static org.springframework.http.HttpStatus.NO_CONTENT;
 import static org.springframework.http.HttpStatus.OK;
 
+@Slf4j
 @RestController
 public class BeerStyleController {
 
@@ -36,8 +38,10 @@ public class BeerStyleController {
 
     @ResponseStatus(OK)
     @GetMapping(value = "/beer-styles", params = "temperature")
-    public Mono<PlaylistBeer> getByTemperature(@RequestParam int temperature) {
-        return service.findByTemperature(temperature);
+    public Mono<PlaylistBeerDto> getByTemperature(@RequestParam int temperature) {
+        return service.findByTemperature(temperature)
+                .map(PlaylistBeerDto::playlistBeerDtoOf)
+                .doOnError(e -> log.error("error mapping beer style, message={}", e.getMessage()));
     }
 
     @ResponseStatus(CREATED)
