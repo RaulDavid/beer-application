@@ -23,8 +23,9 @@ public class PlaylistBeerController {
 
     @ResponseStatus(OK)
     @GetMapping(value = "/playlist-beers/beer-styles", params = "temperature")
-    public Mono<PlaylistBeerDto> getByTemperature(@RequestParam int temperature) {
-        return service.findByTemperature(temperature)
+    public Mono<PlaylistBeerDto> getByTemperature(@RequestParam int temperature,
+                                                  @RequestParam(defaultValue = "true") boolean checkName) {
+        return service.findByTemperature(temperature, checkName)
                 .map(PlaylistBeerDto::playlistBeerDtoOf)
                 .doOnError(e -> log.error("error mapping playlist beer dto, message={}", e.getMessage()));
     }

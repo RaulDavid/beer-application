@@ -25,23 +25,23 @@ public class PlaylistBeerService {
         this.spotifyClient = spotifyClient;
     }
 
-    public Mono<PlaylistBeer> findByTemperature(int temperature) {
+    public Mono<PlaylistBeer> findByTemperature(int temperature, boolean checkNameParam) {
         log.info("finding playlist beer by temperature={}", temperature);
         return beerStyleService.findByCloserAvgTemperature(temperature)
-                .flatMap(this::getPlaylistBeer);
+                .flatMap(beerStyle -> getPlaylistBeer(beerStyle, checkNameParam));
     }
 
-    private Mono<PlaylistBeer> getPlaylistBeer(BeerStyle beerStyle) {
-        log.info("getting playlist beer by style={}", beerStyle);
+    private Mono<PlaylistBeer> getPlaylistBeer(BeerStyle beerStyle, boolean checkNameParam) {
+        log.info("getting playlist beer by style={}, checkNameParam={}", beerStyle, checkNameParam);
         return spotifyClient.getPlaylistByName(beerStyle.getName())
                 .switchIfEmpty(playlistBeerNotFound())
-                .doOnNext(playlist -> checkPlaylistName(beerStyle, playlist.getName()))
+                .doOnNext(playlist -> checkPlaylistName(checkNameParam, beerStyle, playlist.getName()))
                 .map(playlist -> playlistBeerOf(beerStyle, playlist))
                 .doOnError(e -> log.error("error getting playlist beer, message={}", e.getMessage()));
     }
 
-    private void checkPlaylistName(BeerStyle beerStyle, String playlistName) {
-        if (!containsIgnoreCase(playlistName, beerStyle.getName())) {
+    private void checkPlaylistName(boolean checkNameParam, BeerStyle beerStyle, String playlistName) {
+        if (checkNameParam && !containsIgnoreCase(playlistName, beerStyle.getName())) {
             throw new NotFoundException(PLAYLIST_BEER_NOT_CONTAINS_BEER_STYLE_NAME);
         }
     }

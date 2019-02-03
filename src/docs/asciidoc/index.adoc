@@ -1,4 +1,4 @@
-= Duff API Documentation
+= Beer API Documentation
 :toc: left
 
 == Introduction
@@ -6,14 +6,14 @@ Beer styles have a ideal temperature of consumption, this API support a CRUD of 
 and a search of playlist beer by closer average temperature. A playlist beer has a beer style name
 and a Spotify playlist that contain the beer style.
 
-== Duff API
+== Beer API
 Collection of CRUD API endpoints used to manipulate beer styles registered in the application.
 And an option of find playlist beer by average temperature
 
 === Get Playlist Beer by Closer Average Temperature
 Obtains a specific playlist beer registered in the application by closer average temperature, if has two playlists beer
 with same average temperature obtain per alphabet order.
-If don't find a playlist with beer style name a not found status will be returned.
+*If don't find a playlist with beer style name a not found status will be returned.*
 
 ==== Sample Request
 include::{snippets}/playlist-beer/get-by-temperature/http-request.adoc[]
@@ -23,6 +23,20 @@ include::{snippets}/playlist-beer/get-by-temperature/http-response.adoc[]
 
 ==== CURL sample
 include::{snippets}/playlist-beer/get-by-temperature/curl-request.adoc[]
+
+=== Get Playlist Beer by Closer Average Temperature Without Check Playlist Name
+Obtains a specific playlist beer registered in the application by closer average temperature, if has two playlists beer
+with same average temperature obtain per alphabet order.
+Can return playlist with name that not contain beer style name.
+
+==== Sample Request
+include::{snippets}/playlist-beer/get-by-temperature-with-check-name-false/http-request.adoc[]
+
+==== Sample Response
+include::{snippets}/playlist-beer/get-by-temperature-with-check-name-false/http-response.adoc[]
+
+==== CURL sample
+include::{snippets}/playlist-beer/get-by-temperature-with-check-name-false/curl-request.adoc[]
 
 === Get All Beer Styles
 Obtains all beer styles registered in the application

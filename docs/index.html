@@ -5,7 +5,7 @@
 <!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge"><![endif]-->
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 1.5.7.1">
-<title>Duff API Documentation</title>
+<title>Beer API Documentation</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
 /* Asciidoctor default stylesheet | MIT License | http://asciidoctor.org */
@@ -432,14 +432,15 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </head>
 <body class="book toc2 toc-left">
 <div id="header">
-<h1>Duff API Documentation</h1>
+<h1>Beer API Documentation</h1>
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
 <li><a href="#_introduction">Introduction</a></li>
-<li><a href="#_duff_api">Duff API</a>
+<li><a href="#_beer_api">Beer API</a>
 <ul class="sectlevel2">
 <li><a href="#_get_playlist_beer_by_closer_average_temperature">Get Playlist Beer by Closer Average Temperature</a></li>
+<li><a href="#_get_playlist_beer_by_closer_average_temperature_without_check_playlist_name">Get Playlist Beer by Closer Average Temperature Without Check Playlist Name</a></li>
 <li><a href="#_get_all_beer_styles">Get All Beer Styles</a></li>
 <li><a href="#_get_beer_style_by_id">Get Beer Style By Id</a></li>
 <li><a href="#_create_beer_style">Create Beer Style</a></li>
@@ -462,7 +463,7 @@ and a Spotify playlist that contain the beer style.</p>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_duff_api">Duff API</h2>
+<h2 id="_beer_api">Beer API</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>Collection of CRUD API endpoints used to manipulate beer styles registered in the application.
@@ -473,7 +474,7 @@ And an option of find playlist beer by average temperature</p>
 <div class="paragraph">
 <p>Obtains a specific playlist beer registered in the application by closer average temperature, if has two playlists beer
 with same average temperature obtain per alphabet order.
-If don&#8217;t find a playlist with beer style name a not found status will be returned.</p>
+<strong>If don&#8217;t find a playlist with beer style name a not found status will be returned.</strong></p>
 </div>
 <div class="sect3">
 <h4 id="_sample_request">Sample Request</h4>
@@ -506,15 +507,17 @@ Content-Type: application/json;charset=UTF-8
 </div>
 </div>
 <div class="sect2">
-<h3 id="_get_all_beer_styles">Get All Beer Styles</h3>
+<h3 id="_get_playlist_beer_by_closer_average_temperature_without_check_playlist_name">Get Playlist Beer by Closer Average Temperature Without Check Playlist Name</h3>
 <div class="paragraph">
-<p>Obtains all beer styles registered in the application</p>
+<p>Obtains a specific playlist beer registered in the application by closer average temperature, if has two playlists beer
+with same average temperature obtain per alphabet order.
+Can return playlist with name that not contain beer style name.</p>
 </div>
 <div class="sect3">
 <h4 id="_sample_request_2">Sample Request</h4>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight nowrap"><code class="language-http" data-lang="http">GET /beer-styles HTTP/1.1
+<pre class="highlight nowrap"><code class="language-http" data-lang="http">GET /playlist-beers/beer-styles?temperature=10&amp;checkName=false HTTP/1.1
 Host: localhost:8080</code></pre>
 </div>
 </div>
@@ -525,15 +528,50 @@ Host: localhost:8080</code></pre>
 <div class="content">
 <pre class="highlight nowrap"><code class="language-http" data-lang="http">HTTP/1.1 200 OK
 Content-Type: application/json;charset=UTF-8
-transfer-encoding: chunked
-Content-Length: 179
+Content-Length: 13011
 
-[{"id":"5c56463d33668e09a83301e0","name":"name 1","maxTemperature":10,"minTemperature":5},{"id":"5c56463d33668e09a83301e1","name":"name 2","maxTemperature":10,"minTemperature":5}]</code></pre>
+{"beerStyle":"Brown ale","playlist":{"name":"SOUL - Best of Atlantic, Stax &amp; Motown (Uptown, Memphis, Detroit)","tracks":[{"name":"A Change Is Gonna Come","artist":"Sam Cooke","link":"https://api.spotify.com/v1/artists/6hnWRPzGGKiapVX1UCdEAC"},{"name":"Georgia On My Mind","artist":"Ray Charles","link":"https://api.spotify.com/v1/artists/1eYhYunlNJlDoQhtYBvPsi"},{"name":"(You Make Me Feel Like) A Natural Woman","artist":"Aretha Franklin","link":"https://api.spotify.com/v1/artists/7nwUJBm0HE4ZxD3f5cy5ok"},{"name":"People Get Ready","artist":"The Impressions","link":"https://api.spotify.com/v1/artists/1b1N51wmSK0ckxFAMPSSHO"},{"name":"Sitting In The Park - Single Version","artist":"Billy Stewart","link":"https://api.spotify.com/v1/artists/21llKqnS025UdaAMslJS4J"},{"name":"The Dark End of the Street","artist":"James Carr","link":"https://api.spotify.com/v1/artists/59fzcTUsoozikLmRY1SwHS"},{"name":"Ain't No Sunshine","artist":"Bill Withers","link":"https://api.spotify.com/v1/artists/1ThoqLcyIYvZn7iWbj8fsj"},{"name":"What The World Needs Now - Is Love","artist":"Dionne Warwick","link":"https://api.spotify.com/v1/artists/2JSjCHK79gdaiPWdKiNUNp"},{"name":"(Sittin' On) The Dock of the Bay","artist":"Otis Redding","link":"https://api.spotify.com/v1/artists/60df5JBRRPcnSpsIMxxwQm"},{"name":"Do Right Woman - Do Right Man","artist":"Aretha Franklin","link":"https://api.spotify.com/v1/artists/7nwUJBm0HE4ZxD3f5cy5ok"},{"name":"Let's Get It On","artist":"Marvin Gaye","link":"https://api.spotify.com/v1/artists/3koiLjNrgRTNbOwViDipeA"},{"name":"Lean on Me - Single Version","artist":"Bill Withers","link":"https://api.spotify.com/v1/artists/1ThoqLcyIYvZn7iWbj8fsj"},{"name":"When A Man Loves A Woman","artist":"Percy Sledge","link":"https://api.spotify.com/v1/artists/3rRmDmzPcAFwcUDvG5gBqO"},{"name":"I Never Loved A Man [The Way I Love You]","artist":"Aretha Franklin","link":"https://api.spotify.com/v1/artists/7nwUJBm0HE4ZxD3f5cy5ok"},{"name":"The Tracks Of My Tears","artist":"Smokey Robinson &amp; The Miracles","link":"https://api.spotify.com/v1/artists/6TKOZZDd5uV5KnyC5G4MUt"},{"name":"What Becomes Of The Brokenhearted","artist":"Jimmy Ruffin","link":"https://api.spotify.com/v1/artists/0hF0PwB04hnXfYMiZWfJzy"},{"name":"My Girl","artist":"The Temptations","link":"https://api.spotify.com/v1/artists/3RwQ26hR2tJtA8F9p2n7jG"},{"name":"I Wish I Knew How It Would Feel to Be Free","artist":"Nina Simone","link":"https://api.spotify.com/v1/artists/7G1GBhoKtEPnP86X2PvEYO"},{"name":"Groovin' - Single Version; Mono","artist":"The Young Rascals","link":"https://api.spotify.com/v1/artists/5X3TuTi9OIsJXMGxPwTKM2"},{"name":"My Guy","artist":"Mary Wells","link":"https://api.spotify.com/v1/artists/1cjZk1xXn3YCToNg3uJpA7"},{"name":"I Heard It Through The Grapevine","artist":"Marvin Gaye","link":"https://api.spotify.com/v1/artists/3koiLjNrgRTNbOwViDipeA"},{"name":"Let's Stay Together","artist":"Al Green","link":"https://api.spotify.com/v1/artists/3dkbV4qihUeMsqN4vBGg93"},{"name":"Killing Me Softly With His Song","artist":"Roberta Flack","link":"https://api.spotify.com/v1/artists/0W498bDDNlJIrYMKXdpLHA"},{"name":"I Can't Stand the Rain","artist":"Ann Peebles","link":"https://api.spotify.com/v1/artists/5dM7jA0PXh0Ozz8LT2YOCB"},{"name":"Didn't I (Blow Your Mind This Time)","artist":"The Delfonics","link":"https://api.spotify.com/v1/artists/6YPRXu1dazGYcSZv4HJEH4"},{"name":"Strawberry Letter 23","artist":"The Brothers Johnson","link":"https://api.spotify.com/v1/artists/6h3rSZ8VLK7a5vXjEmhfuD"},{"name":"Across 110th Street","artist":"Bobby Womack","link":"https://api.spotify.com/v1/artists/0vqkz1b2qBkoYrGMj2CUWq"},{"name":"Street Life","artist":"Randy Crawford","link":"https://api.spotify.com/v1/artists/1twC2fwPG5FkvYcMpVBQRz"},{"name":"I Say a Little Prayer","artist":"Dionne Warwick","link":"https://api.spotify.com/v1/artists/2JSjCHK79gdaiPWdKiNUNp"},{"name":"Try a Little Tenderness","artist":"Otis Redding","link":"https://api.spotify.com/v1/artists/60df5JBRRPcnSpsIMxxwQm"},{"name":"It's A Man's, Man's, Man's World - Single Version (Mono)","artist":"James Brown","link":"https://api.spotify.com/v1/artists/7GaxyUddsPok8BuhxN6OUW"},{"name":"Do You Know the Way to San Jose","artist":"Dionne Warwick","link":"https://api.spotify.com/v1/artists/2JSjCHK79gdaiPWdKiNUNp"},{"name":"Shop Around","artist":"The Miracles","link":"https://api.spotify.com/v1/artists/6TqQLejnHXMGr7KcegxUND"},{"name":"Where Did Our Love Go - Stereo","artist":"The Supremes","link":"https://api.spotify.com/v1/artists/57bUPid8xztkieZfS7OlEV"},{"name":"Please Mr. Postman","artist":"The Marvelettes","link":"https://api.spotify.com/v1/artists/0MponVSpW81oLvJZ53vYZH"},{"name":"Knock On Wood","artist":"Eddie Floyd","link":"https://api.spotify.com/v1/artists/6Bfy6QzadCXS92y0T8dDZF"},{"name":"Stop! In The Name Of Love - Juke Box Single Version (Stereo)","artist":"The Supremes","link":"https://api.spotify.com/v1/artists/57bUPid8xztkieZfS7OlEV"},{"name":"Papa's Got A Brand New Bag (Part 1) - Single Version","artist":"James Brown","link":"https://api.spotify.com/v1/artists/7GaxyUddsPok8BuhxN6OUW"},{"name":"Nothing But A Heartache","artist":"The Flirtations","link":"https://api.spotify.com/v1/artists/3Hra0KQr00Pe9oqmQdVtvp"},{"name":"Reach Out, I'll Be There","artist":"Four Tops","link":"https://api.spotify.com/v1/artists/7fIvjotigTGWqjIz6EP1i4"},{"name":"Ain't Too Proud To Beg","artist":"The Temptations","link":"https://api.spotify.com/v1/artists/3RwQ26hR2tJtA8F9p2n7jG"},{"name":"Its In His Kiss","artist":"Betty Everett","link":"https://api.spotify.com/v1/artists/53jXEVVJtpaWVQ3ffvhDtl"},{"name":"Nowhere To Run","artist":"Martha Reeves &amp; The Vandellas","link":"https://api.spotify.com/v1/artists/1Pe5hlKMCTULjosqZ6KanP"},{"name":"What A Man","artist":"Linda Lyndell","link":"https://api.spotify.com/v1/artists/5zU5MAgXh6Lcs3FY2KSFNQ"},{"name":"Destination: Anywhere - Single Version","artist":"The Marvelettes","link":"https://api.spotify.com/v1/artists/0MponVSpW81oLvJZ53vYZH"},{"name":"Lovely Day","artist":"Bill Withers","link":"https://api.spotify.com/v1/artists/1ThoqLcyIYvZn7iWbj8fsj"},{"name":"Mr. Big Stuff","artist":"Jean Knight","link":"https://api.spotify.com/v1/artists/2Tk0pWxTuQgnE5nsUexrLr"},{"name":"Can't Get Enough Of Your Love, Babe","artist":"Barry White","link":"https://api.spotify.com/v1/artists/3rfgbfpPSfXY40lzRK7Syt"},{"name":"Ain't No Mountain High Enough","artist":"Marvin Gaye","link":"https://api.spotify.com/v1/artists/3koiLjNrgRTNbOwViDipeA"},{"name":"Dancing In The Street - Single Version","artist":"Martha Reeves &amp; The Vandellas","link":"https://api.spotify.com/v1/artists/1Pe5hlKMCTULjosqZ6KanP"},{"name":"I Got You (I Feel Good)","artist":"James Brown","link":"https://api.spotify.com/v1/artists/7GaxyUddsPok8BuhxN6OUW"},{"name":"In The Midnight Hour - Remastered Single Version","artist":"Wilson Pickett","link":"https://api.spotify.com/v1/artists/0N5PyKJzS3M1XNlaCL7bbE"},{"name":"Everybody Needs Somebody To Love","artist":"Solomon Burke","link":"https://api.spotify.com/v1/artists/4nts0oxMT67lVUoi5Kjxrb"},{"name":"Hit The Road Jack","artist":"Ray Charles","link":"https://api.spotify.com/v1/artists/1eYhYunlNJlDoQhtYBvPsi"},{"name":"Respect","artist":"Aretha Franklin","link":"https://api.spotify.com/v1/artists/7nwUJBm0HE4ZxD3f5cy5ok"},{"name":"Mustang Sally","artist":"Wilson Pickett","link":"https://api.spotify.com/v1/artists/0N5PyKJzS3M1XNlaCL7bbE"},{"name":"Think","artist":"Aretha Franklin","link":"https://api.spotify.com/v1/artists/7nwUJBm0HE4ZxD3f5cy5ok"},{"name":"Lady Marmalade","artist":"LaBelle","link":"https://api.spotify.com/v1/artists/3DznKagEU8yMQZR9z33Da5"},{"name":"Soul Man - LP/Single Version","artist":"Sam &amp; Dave","link":"https://api.spotify.com/v1/artists/2BVYdY4PyfCF9z4NrkhEB2"},{"name":"Best of My Love","artist":"The Emotions","link":"https://api.spotify.com/v1/artists/64CuUOOirKmdAYLQSfaOyr"},{"name":"It's A Shame - Remastered","artist":"The Spinners","link":"https://api.spotify.com/v1/artists/5fbhwqYYh4YwUoEs582mq5"},{"name":"Sex Machine","artist":"James Brown","link":"https://api.spotify.com/v1/artists/7GaxyUddsPok8BuhxN6OUW"},{"name":"You're The First, The Last, My Everything","artist":"Barry White","link":"https://api.spotify.com/v1/artists/3rfgbfpPSfXY40lzRK7Syt"},{"name":"Easy - Extended Version","artist":"Commodores","link":"https://api.spotify.com/v1/artists/6twIAGnYuIT1pncMAsXnEm"},{"name":"Tell It Like It Is","artist":"Aaron Neville","link":"https://api.spotify.com/v1/artists/57ALvbCBaCkNlgTOSiUPdT"},{"name":"You Are The Sunshine Of My Life","artist":"Stevie Wonder","link":"https://api.spotify.com/v1/artists/7guDJrEfX3qb6FEbdPA5qi"},{"name":"Inside My Love - Remastered","artist":"Minnie Riperton","link":"https://api.spotify.com/v1/artists/2i1IdHG5w0wiSmJGoqAGlj"},{"name":"Rock Your Baby","artist":"George McCrae","link":"https://api.spotify.com/v1/artists/6oV3BNm1Gj2GGgpYknc5TN"},{"name":"Sir Duke","artist":"Stevie Wonder","link":"https://api.spotify.com/v1/artists/7guDJrEfX3qb6FEbdPA5qi"},{"name":"Let The Music Play","artist":"Barry White","link":"https://api.spotify.com/v1/artists/3rfgbfpPSfXY40lzRK7Syt"},{"name":"Midnight Train to Georgia","artist":"Gladys Knight &amp; The Pips","link":"https://api.spotify.com/v1/artists/0TF2NxkJZPQoX1H53rEFM1"},{"name":"Take Me To The River","artist":"Al Green","link":"https://api.spotify.com/v1/artists/3dkbV4qihUeMsqN4vBGg93"},{"name":"Green Onions","artist":"Booker T. &amp; the M.G.'s","link":"https://api.spotify.com/v1/artists/2vDV0T8sxx2ENnKXds75e5"},{"name":"Sunny","artist":"Bobby Hebb","link":"https://api.spotify.com/v1/artists/2uNpV18izVIP7DNusoWbT5"},{"name":"Hold On, I'm Comin'","artist":"Sam &amp; Dave","link":"https://api.spotify.com/v1/artists/2BVYdY4PyfCF9z4NrkhEB2"},{"name":"O-o-h Child - Remastered","artist":"The Five Stairsteps","link":"https://api.spotify.com/v1/artists/3Inrg8cs8oc4q8oPES4a6S"},{"name":"Don't Leave Me This Way","artist":"Harold Melvin &amp; The Blue Notes","link":"https://api.spotify.com/v1/artists/438JBZR1AR0l04AzcYW9gy"},{"name":"Rescue Me","artist":"Fontella Bass","link":"https://api.spotify.com/v1/artists/6k3YMXJ1MJLgUEAlSPC6hA"},{"name":"Sweet Soul Music","artist":"Arthur Conley","link":"https://api.spotify.com/v1/artists/10TSIJnyUcowWhpjj59gHB"},{"name":"California Soul","artist":"Marlena Shaw","link":"https://api.spotify.com/v1/artists/0hirZ8kPPdM9pzXpoagB4w"},{"name":"The Tears Of A Clown","artist":"Smokey Robinson &amp; The Miracles","link":"https://api.spotify.com/v1/artists/6TKOZZDd5uV5KnyC5G4MUt"},{"name":"The Rubberband Man - Remastered Version","artist":"The Spinners","link":"https://api.spotify.com/v1/artists/5fbhwqYYh4YwUoEs582mq5"},{"name":"(Your Love Keeps Lifting Me) Higher &amp; Higher","artist":"Jackie Wilson","link":"https://api.spotify.com/v1/artists/4VnomLtKTm9Ahe1tZfmZju"},{"name":"This Old Heart Of Mine (Is Weak For You)","artist":"The Isley Brothers","link":"https://api.spotify.com/v1/artists/53QzNeFpzAaXYnrDBbDrIp"},{"name":"Baby Love - Juke Box Single Version (Stereo)","artist":"The Supremes","link":"https://api.spotify.com/v1/artists/57bUPid8xztkieZfS7OlEV"},{"name":"Chain Of Fools","artist":"Aretha Franklin","link":"https://api.spotify.com/v1/artists/7nwUJBm0HE4ZxD3f5cy5ok"},{"name":"Walk On By","artist":"Dionne Warwick","link":"https://api.spotify.com/v1/artists/2JSjCHK79gdaiPWdKiNUNp"},{"name":"I Can't Help Myself (Sugar Pie, Honey Bunch)","artist":"Four Tops","link":"https://api.spotify.com/v1/artists/7fIvjotigTGWqjIz6EP1i4"},{"name":"Move On Up","artist":"Curtis Mayfield","link":"https://api.spotify.com/v1/artists/2AV6XDIs32ofIJhkkDevjm"},{"name":"It Takes Two","artist":"Marvin Gaye","link":"https://api.spotify.com/v1/artists/3koiLjNrgRTNbOwViDipeA"},{"name":"I'll Take You There","artist":"The Staple Singers","link":"https://api.spotify.com/v1/artists/7xGGqA85UIWX1GoTVM4itC"},{"name":"Tired Of Being Alone","artist":"Al Green","link":"https://api.spotify.com/v1/artists/3dkbV4qihUeMsqN4vBGg93"},{"name":"I've Been Loving You Too Long","artist":"Otis Redding","link":"https://api.spotify.com/v1/artists/60df5JBRRPcnSpsIMxxwQm"},{"name":"Lovin' You","artist":"Minnie Riperton","link":"https://api.spotify.com/v1/artists/2i1IdHG5w0wiSmJGoqAGlj"},{"name":"If You Don't Know Me by Now","artist":"Harold Melvin &amp; The Blue Notes","link":"https://api.spotify.com/v1/artists/438JBZR1AR0l04AzcYW9gy"},{"name":"Ooo Baby Baby","artist":"Smokey Robinson &amp; The Miracles","link":"https://api.spotify.com/v1/artists/6TKOZZDd5uV5KnyC5G4MUt"},{"name":"Just My Imagination (Running Away With Me) - Single Version / Mono","artist":"The Temptations","link":"https://api.spotify.com/v1/artists/3RwQ26hR2tJtA8F9p2n7jG"},{"name":"Natural High","artist":"Bloodstone","link":"https://api.spotify.com/v1/artists/7z1zaOeWiHpl4SD2N9ZBgk"},{"name":"Superstition","artist":"Stevie Wonder","link":"https://api.spotify.com/v1/artists/7guDJrEfX3qb6FEbdPA5qi"},{"name":"Dance to the Music","artist":"Sly &amp; The Family Stone","link":"https://api.spotify.com/v1/artists/5m8H6zSadhu1j9Yi04VLqD"}]}}</code></pre>
 </div>
 </div>
 </div>
 <div class="sect3">
 <h4 id="_curl_sample_2">CURL sample</h4>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-bash" data-lang="bash">$ curl 'http://localhost:8080/playlist-beers/beer-styles?temperature=10&amp;checkName=false' -i -X GET</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_get_all_beer_styles">Get All Beer Styles</h3>
+<div class="paragraph">
+<p>Obtains all beer styles registered in the application</p>
+</div>
+<div class="sect3">
+<h4 id="_sample_request_3">Sample Request</h4>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight nowrap"><code class="language-http" data-lang="http">GET /beer-styles HTTP/1.1
+Host: localhost:8080</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_sample_response_3">Sample Response</h4>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight nowrap"><code class="language-http" data-lang="http">HTTP/1.1 200 OK
+Content-Type: application/json;charset=UTF-8
+transfer-encoding: chunked
+Content-Length: 179
+
+[{"id":"5c5757c133668e3d66b8e4f6","name":"name 1","maxTemperature":10,"minTemperature":5},{"id":"5c5757c133668e3d66b8e4f7","name":"name 2","maxTemperature":10,"minTemperature":5}]</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_curl_sample_3">CURL sample</h4>
 <div class="listingblock">
 <div class="content">
 <pre class="highlight"><code class="language-bash" data-lang="bash">$ curl 'http://localhost:8080/beer-styles' -i -X GET</code></pre>
@@ -547,31 +585,31 @@ Content-Length: 179
 <p>Obtains a specific beer style registered in the application by its unique identifier.</p>
 </div>
 <div class="sect3">
-<h4 id="_sample_request_3">Sample Request</h4>
+<h4 id="_sample_request_4">Sample Request</h4>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight nowrap"><code class="language-http" data-lang="http">GET /beer-styles/5c56463d33668e09a83301e4 HTTP/1.1
+<pre class="highlight nowrap"><code class="language-http" data-lang="http">GET /beer-styles/5c5757c133668e3d66b8e4fa HTTP/1.1
 Host: localhost:8080</code></pre>
 </div>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_sample_response_3">Sample Response</h4>
+<h4 id="_sample_response_4">Sample Response</h4>
 <div class="listingblock">
 <div class="content">
 <pre class="highlight nowrap"><code class="language-http" data-lang="http">HTTP/1.1 200 OK
 Content-Length: 88
 Content-Type: application/json;charset=UTF-8
 
-{"id":"5c56463d33668e09a83301e4","name":"name 1","maxTemperature":10,"minTemperature":5}</code></pre>
+{"id":"5c5757c133668e3d66b8e4fa","name":"name 1","maxTemperature":10,"minTemperature":5}</code></pre>
 </div>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_curl_sample_3">CURL sample</h4>
+<h4 id="_curl_sample_4">CURL sample</h4>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-bash" data-lang="bash">$ curl 'http://localhost:8080/beer-styles/5c56463d33668e09a83301e4' -i -X GET</code></pre>
+<pre class="highlight"><code class="language-bash" data-lang="bash">$ curl 'http://localhost:8080/beer-styles/5c5757c133668e3d66b8e4fa' -i -X GET</code></pre>
 </div>
 </div>
 </div>
@@ -582,7 +620,7 @@ Content-Type: application/json;charset=UTF-8
 <p>Create a beer style.</p>
 </div>
 <div class="sect3">
-<h4 id="_sample_request_4">Sample Request</h4>
+<h4 id="_sample_request_5">Sample Request</h4>
 <div class="listingblock">
 <div class="content">
 <pre class="highlight nowrap"><code class="language-http" data-lang="http">POST /beer-styles HTTP/1.1
@@ -595,19 +633,19 @@ Host: localhost:8080
 </div>
 </div>
 <div class="sect3">
-<h4 id="_sample_response_4">Sample Response</h4>
+<h4 id="_sample_response_5">Sample Response</h4>
 <div class="listingblock">
 <div class="content">
 <pre class="highlight nowrap"><code class="language-http" data-lang="http">HTTP/1.1 201 Created
 Content-Length: 88
 Content-Type: application/json;charset=UTF-8
 
-{"id":"5c56463d33668e09a83301df","name":"name 3","maxTemperature":10,"minTemperature":5}</code></pre>
+{"id":"5c5757c133668e3d66b8e4f5","name":"name 3","maxTemperature":10,"minTemperature":5}</code></pre>
 </div>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_curl_sample_4">CURL sample</h4>
+<h4 id="_curl_sample_5">CURL sample</h4>
 <div class="listingblock">
 <div class="content">
 <pre class="highlight"><code class="language-bash" data-lang="bash">$ curl 'http://localhost:8080/beer-styles' -i -X POST \
@@ -623,10 +661,10 @@ Content-Type: application/json;charset=UTF-8
 <p>Update a beer style by its unique identifier.</p>
 </div>
 <div class="sect3">
-<h4 id="_sample_request_5">Sample Request</h4>
+<h4 id="_sample_request_6">Sample Request</h4>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight nowrap"><code class="language-http" data-lang="http">PUT /beer-styles/5c56463d33668e09a83301e2 HTTP/1.1
+<pre class="highlight nowrap"><code class="language-http" data-lang="http">PUT /beer-styles/5c5757c133668e3d66b8e4f8 HTTP/1.1
 Content-Type: application/json;charset=UTF-8
 Content-Length: 68
 Host: localhost:8080
@@ -636,22 +674,22 @@ Host: localhost:8080
 </div>
 </div>
 <div class="sect3">
-<h4 id="_sample_response_5">Sample Response</h4>
+<h4 id="_sample_response_6">Sample Response</h4>
 <div class="listingblock">
 <div class="content">
 <pre class="highlight nowrap"><code class="language-http" data-lang="http">HTTP/1.1 200 OK
 Content-Length: 90
 Content-Type: application/json;charset=UTF-8
 
-{"id":"5c56463d33668e09a83301e2","name":"new name","maxTemperature":10,"minTemperature":9}</code></pre>
+{"id":"5c5757c133668e3d66b8e4f8","name":"new name","maxTemperature":10,"minTemperature":9}</code></pre>
 </div>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_curl_sample_5">CURL sample</h4>
+<h4 id="_curl_sample_6">CURL sample</h4>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-bash" data-lang="bash">$ curl 'http://localhost:8080/beer-styles/5c56463d33668e09a83301e2' -i -X PUT \
+<pre class="highlight"><code class="language-bash" data-lang="bash">$ curl 'http://localhost:8080/beer-styles/5c5757c133668e3d66b8e4f8' -i -X PUT \
     -H 'Content-Type: application/json;charset=UTF-8' \
     -d '{"id":null,"name":"new name","maxTemperature":10,"minTemperature":9}'</code></pre>
 </div>
@@ -664,16 +702,16 @@ Content-Type: application/json;charset=UTF-8
 <p>Delete a beer style by its unique identifier.</p>
 </div>
 <div class="sect3">
-<h4 id="_sample_request_6">Sample Request</h4>
+<h4 id="_sample_request_7">Sample Request</h4>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight nowrap"><code class="language-http" data-lang="http">DELETE /beer-styles/5c56463d33668e09a83301e6 HTTP/1.1
+<pre class="highlight nowrap"><code class="language-http" data-lang="http">DELETE /beer-styles/5c5757c133668e3d66b8e4fc HTTP/1.1
 Host: localhost:8080</code></pre>
 </div>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_sample_response_6">Sample Response</h4>
+<h4 id="_sample_response_7">Sample Response</h4>
 <div class="listingblock">
 <div class="content">
 <pre class="highlight nowrap"><code class="language-http" data-lang="http">HTTP/1.1 204 No Content</code></pre>
@@ -681,10 +719,10 @@ Host: localhost:8080</code></pre>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_curl_sample_6">CURL sample</h4>
+<h4 id="_curl_sample_7">CURL sample</h4>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-bash" data-lang="bash">$ curl 'http://localhost:8080/beer-styles/5c56463d33668e09a83301e6' -i -X DELETE</code></pre>
+<pre class="highlight"><code class="language-bash" data-lang="bash">$ curl 'http://localhost:8080/beer-styles/5c5757c133668e3d66b8e4fc' -i -X DELETE</code></pre>
 </div>
 </div>
 </div>
@@ -694,7 +732,7 @@ Host: localhost:8080</code></pre>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2019-02-03 00:55:35 BRST
+Last updated 2019-02-03 19:05:52 BRST
 </div>
 </div>
 </body>

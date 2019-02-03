@@ -5,6 +5,7 @@ import com.api.duff.dto.BeerStyleDto;
 import com.api.duff.repository.BeerStyleRepository;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,6 +48,7 @@ class BeerStyleControllerTest extends DuffApplicationTests {
     }
 
     @Test
+    @DisplayName("should get all beer styles")
     void getAll() {
         //when
         WebTestClient.ResponseSpec beerStylesSpec = webTestClient.get()
@@ -62,6 +64,7 @@ class BeerStyleControllerTest extends DuffApplicationTests {
     }
 
     @Test
+    @DisplayName("should get beer style by id")
     void getById() {
         //given
         var beerStyle = repository.findAll().collectList().block().get(0);
@@ -79,6 +82,7 @@ class BeerStyleControllerTest extends DuffApplicationTests {
     }
 
     @Test
+    @DisplayName("should create beer style")
     void create() {
         //given
         var beerStyleDto = beerStyleDtoOf(beerStyleOf("name 3", 10, 5));
@@ -97,6 +101,7 @@ class BeerStyleControllerTest extends DuffApplicationTests {
     }
 
     @Test
+    @DisplayName("should update beer style by id")
     void updateById() {
         //given
         var beerStyle = repository.findAll().collectList().block().get(0);
@@ -117,6 +122,7 @@ class BeerStyleControllerTest extends DuffApplicationTests {
     }
 
     @Test
+    @DisplayName("should delete beer style by id")
     void deleteById() {
         //given
         var beerStyle = repository.findAll().collectList().block().get(0);
