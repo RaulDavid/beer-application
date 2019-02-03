@@ -1,0 +1,4 @@
+spring:
+  data:
+    mongodb:
+      uri: "mongodb://beer-application:e7Gfk9@ds221095.mlab.com:21095/heroku_lhzxkmvf"
