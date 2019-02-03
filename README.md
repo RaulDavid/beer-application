@@ -1,5 +1,5 @@
 # beer-application
-###Tecnologias utiltizadas:
+### Tecnologias utiltizadas:
 
 - Java 11
 - Maven 3
@@ -16,7 +16,7 @@ IDEs:
 - https://projectlombok.org/setup/eclipse
 - https://projectlombok.org/setup/netbeans
 
-####Documentação
+#### Documentação
 https://rauldavid.github.io/beer-application
 
 Como Spring REST Docs a documentação é gerada a partir dos testes.
@@ -27,8 +27,8 @@ pelo último build que realizei. Caso seja feita alguma alteração nos
 endpoints é preciso realizar o comando `mvn package` subir a aplicação
 e acessar o endpoint `/docs/index.html` para ver a documentação gerada.
 
-####Build
-#####Local
+#### Build
+##### Local
 
 Você só precisa ter instalado o docker na sua máquina.
 Execute o arquivo `build-linux.sh` se o seu SO for linux.
