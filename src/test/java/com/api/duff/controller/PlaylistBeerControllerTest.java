@@ -70,7 +70,7 @@ class PlaylistBeerControllerTest extends DuffApplicationTests {
     void getByTemperatureWithoutCheckName() {
         //given
         var beers = List.of(beerStyleOf("Brown ale", 11, 10),
-                beerStyleOf("Brown ale", 10, 5));
+                beerStyleOf("Dunkel", 10, 5));
         repository.saveAll(beers).collectList().block();
         var firstBeerName = beers.get(0).getName();
 
