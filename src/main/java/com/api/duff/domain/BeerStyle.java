@@ -18,7 +18,7 @@ public class BeerStyle implements Serializable {
     @Id
     private String id;
 
-    @Indexed
+    @Indexed(unique = true)
     private final String name;
     private final int maxTemperature;
     private final int minTemperature;
