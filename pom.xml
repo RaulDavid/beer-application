@@ -103,7 +103,7 @@
             <plugin>
                 <groupId>org.asciidoctor</groupId>
                 <artifactId>asciidoctor-maven-plugin</artifactId>
-                <version>LATEST</version>
+                <version>1.5.7.1</version>
                 <executions>
                     <execution>
                         <id>generate-docs</id>
