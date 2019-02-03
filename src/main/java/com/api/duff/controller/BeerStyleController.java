@@ -30,15 +30,23 @@ public class BeerStyleController {
 
     @ResponseStatus(OK)
     @GetMapping("/beer-styles")
-    public Flux<BeerStyleDto> getAllBeers() {
+    public Flux<BeerStyleDto> getAll() {
         return service.getAll()
+                .map(BeerStyleDto::beerStyleDtoOf)
+                .doOnError(e -> log.error("error mapping beer style dto, message={}", e.getMessage()));
+    }
+
+    @ResponseStatus(OK)
+    @GetMapping("/beer-styles/{id}")
+    public Mono<BeerStyleDto> getById(@PathVariable String id) {
+        return service.getById(id)
                 .map(BeerStyleDto::beerStyleDtoOf)
                 .doOnError(e -> log.error("error mapping beer style dto, message={}", e.getMessage()));
     }
 
     @ResponseStatus(CREATED)
     @PostMapping("/beer-styles")
-    public Mono<BeerStyleDto> createBeerStyle(@RequestBody BeerStyleDto beerStyleDto) {
+    public Mono<BeerStyleDto> create(@RequestBody BeerStyleDto beerStyleDto) {
         var beerStyle = beerStyleDto.toBeerStyle();
         return service.create(beerStyle)
                 .map(BeerStyleDto::beerStyleDtoOf)
@@ -47,7 +55,7 @@ public class BeerStyleController {
 
     @ResponseStatus(OK)
     @PutMapping(value = "/beer-styles/{id}")
-    public Mono<BeerStyleDto> updateBeerStyleById(@PathVariable String id, @RequestBody BeerStyleDto beerStyleDto) {
+    public Mono<BeerStyleDto> updateById(@PathVariable String id, @RequestBody BeerStyleDto beerStyleDto) {
         var beerStyle = beerStyleDto.toBeerStyle();
         return service.updateById(id, beerStyle)
                 .map(BeerStyleDto::beerStyleDtoOf)

@@ -1,0 +1,85 @@
+= Duff API Documentation
+:toc: left
+
+== Introduction
+Beer styles have a ideal temperature of consumption, this API support a CRUD of beer styles
+and a search of playlist beer by closer average temperature. A playlist beer has a beer style name
+and a Spotify playlist that contain the beer style.
+
+== Duff API
+Collection of CRUD API endpoints used to manipulate beer styles registered in the application.
+And an option of find playlist beer by average temperature
+
+=== Get Playlist Beer by Closer Average Temperature
+Obtains a specific playlist beer registered in the application by closer average temperature, if has two playlists beer
+with same average temperature obtain per alphabet order.
+If don't find a playlist with beer style name a not found status will be returned.
+
+==== Sample Request
+include::{snippets}/playlist-beer/get-by-temperature/http-request.adoc[]
+
+==== Sample Response
+include::{snippets}/playlist-beer/get-by-temperature/http-response.adoc[]
+
+==== CURL sample
+include::{snippets}/playlist-beer/get-by-temperature/curl-request.adoc[]
+
+=== Get All Beer Styles
+Obtains all beer styles registered in the application
+
+==== Sample Request
+include::{snippets}/beer-styles/get-all/http-request.adoc[]
+
+==== Sample Response
+include::{snippets}/beer-styles/get-all/http-response.adoc[]
+
+==== CURL sample
+include::{snippets}/beer-styles/get-all/curl-request.adoc[]
+
+=== Get Beer Style By Id
+Obtains a specific beer style registered in the application by its unique identifier.
+
+==== Sample Request
+include::{snippets}/beer-styles/get-by-id/http-request.adoc[]
+
+==== Sample Response
+include::{snippets}/beer-styles/get-by-id/http-response.adoc[]
+
+==== CURL sample
+include::{snippets}/beer-styles/get-by-id/curl-request.adoc[]
+
+=== Create Beer Style
+Create a beer style.
+
+==== Sample Request
+include::{snippets}/beer-styles/create/http-request.adoc[]
+
+==== Sample Response
+include::{snippets}/beer-styles/create/http-response.adoc[]
+
+==== CURL sample
+include::{snippets}/beer-styles/create/curl-request.adoc[]
+
+=== Update Beer Style by id
+Update a beer style by its unique identifier.
+
+==== Sample Request
+include::{snippets}/beer-styles/update/http-request.adoc[]
+
+==== Sample Response
+include::{snippets}/beer-styles/update/http-response.adoc[]
+
+==== CURL sample
+include::{snippets}/beer-styles/update/curl-request.adoc[]
+
+=== Delete Beer Style by id
+Delete a beer style by its unique identifier.
+
+==== Sample Request
+include::{snippets}/beer-styles/delete/http-request.adoc[]
+
+==== Sample Response
+include::{snippets}/beer-styles/delete/http-response.adoc[]
+
+==== CURL sample
+include::{snippets}/beer-styles/delete/curl-request.adoc[]

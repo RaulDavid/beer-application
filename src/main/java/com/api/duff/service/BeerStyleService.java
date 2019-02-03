@@ -20,7 +20,14 @@ public class BeerStyleService {
     }
 
     public Flux<BeerStyle> getAll() {
+        log.info("getting all beer styles");
         return repository.findAll()
+                .switchIfEmpty(beerStyleNotFound());
+    }
+
+    public Mono<BeerStyle> getById(String id) {
+        log.info("getting beer style by id, id={}", id);
+        return repository.findById(id)
                 .switchIfEmpty(beerStyleNotFound());
     }
 
