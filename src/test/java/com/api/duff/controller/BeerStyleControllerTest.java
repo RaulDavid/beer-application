@@ -36,9 +36,12 @@ class BeerStyleControllerTest extends DuffApplicationTests {
     @BeforeEach
     void setUp(RestDocumentationContextProvider restDocumentation) {
         webTestClient = webTestClient.mutate()
-                .filter(documentationConfiguration(restDocumentation)).build();
+                .filter(documentationConfiguration(restDocumentation))
+                .build();
+
         var beers = List.of(beerStyleOf("name 1", 10, 5),
                 beerStyleOf("name 2", 10, 5));
+
         repository.saveAll(beers).collectList().block();
     }
 
@@ -68,6 +71,7 @@ class BeerStyleControllerTest extends DuffApplicationTests {
     void getById() {
         //given
         var beerStyle = repository.findAll().collectList().block().get(0);
+
         //when
         WebTestClient.ResponseSpec beerStylesSpec = webTestClient.get()
                 .uri("/beer-styles/{id}", beerStyle.getId())
@@ -86,6 +90,7 @@ class BeerStyleControllerTest extends DuffApplicationTests {
     void create() {
         //given
         var beerStyleDto = beerStyleDtoOf(beerStyleOf("name 3", 10, 5));
+
         //when
         WebTestClient.ResponseSpec beerStylesSpec = webTestClient.post()
                 .uri("/beer-styles")

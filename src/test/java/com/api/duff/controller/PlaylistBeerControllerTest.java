@@ -49,12 +49,12 @@ class PlaylistBeerControllerTest extends DuffApplicationTests {
         var beers = List.of(beerStyleOf("rock", 11, 10),
                 beerStyleOf("pop", 10, 5));
         repository.saveAll(beers).collectList().block();
+
         //when
         WebTestClient.ResponseSpec beerStylesSpec = webTestClient.get()
-                .uri(uriBuilder ->
-                        uriBuilder.path("/playlist-beers/beer-styles")
-                                .queryParam("temperature", 10)
-                                .build())
+                .uri(uriBuilder -> uriBuilder.path("/playlist-beers/beer-styles")
+                        .queryParam("temperature", 10)
+                        .build())
                 .exchange();
 
         //then
@@ -76,11 +76,10 @@ class PlaylistBeerControllerTest extends DuffApplicationTests {
 
         //when
         WebTestClient.ResponseSpec beerStylesSpec = webTestClient.get()
-                .uri(uriBuilder ->
-                        uriBuilder.path("/playlist-beers/beer-styles")
-                                .queryParam("temperature", 10)
-                                .queryParam("checkName", false)
-                                .build())
+                .uri(uriBuilder -> uriBuilder.path("/playlist-beers/beer-styles")
+                        .queryParam("temperature", 10)
+                        .queryParam("checkName", false)
+                        .build())
                 .exchange();
 
         //then

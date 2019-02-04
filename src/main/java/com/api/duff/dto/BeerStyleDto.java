@@ -23,7 +23,11 @@ public class BeerStyleDto implements Serializable {
     }
 
     public static BeerStyleDto beerStyleDtoOf(BeerStyle beerStyle) {
-        return new BeerStyleDto(beerStyle.getId(), beerStyle.getName(), beerStyle.getMaxTemperature(), beerStyle.getMinTemperature());
+        return new BeerStyleDto(
+                beerStyle.getId(),
+                beerStyle.getName(),
+                beerStyle.getMaxTemperature(),
+                beerStyle.getMinTemperature());
     }
 
     public BeerStyle toBeerStyle() {

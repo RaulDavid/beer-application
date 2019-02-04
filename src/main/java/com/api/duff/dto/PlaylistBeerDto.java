@@ -19,6 +19,8 @@ public class PlaylistBeerDto implements Serializable {
     }
 
     public static PlaylistBeerDto playlistBeerDtoOf(PlaylistBeer playlistBeer) {
-        return new PlaylistBeerDto(playlistBeer.getBeerStyle().getName(), playlistDtoOf(playlistBeer.getPlaylist()));
+        return new PlaylistBeerDto(
+                playlistBeer.getBeerStyle().getName(),
+                playlistDtoOf(playlistBeer.getPlaylist()));
     }
 }

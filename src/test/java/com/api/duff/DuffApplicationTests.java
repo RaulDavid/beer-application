@@ -16,6 +16,5 @@ public class DuffApplicationTests {
     @Test
     void contextLoads() {
     }
-
 }
 
