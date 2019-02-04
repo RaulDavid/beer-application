@@ -33,7 +33,7 @@ Com Spring REST Docs a documentação é gerada a partir dos testes.
 Caso algum teste falhe a documentação não é gerada para o endpoint.
 Isso é muito bom pois garante a confiabilidade da documentação e da
 própia aplicação. Caso seja feita alguma alteração local nos
-endpoints é preciso realizar o comando `mvn package` subir a aplicação
+endpoints é preciso realizar o comando `./mvnw  package` subir a aplicação
 e acessar o endpoint `/docs/index.html` para ver a documentação gerada.
 
 ### Build
@@ -51,9 +51,9 @@ Para Windows, na pasta do projeto execute os seguintes comandos:
 `docker run  -p 8080:8080 --name beer-container -t beer-image`
 
 Caso você tenha um ambiente de desenvolvimento já configurado com
-Java 11 (`java --version`) e maven 3 (`mvn --version`),
+Java 11 (`java --version`),
 recomendo realizar o seguinte comando na raiz do projeto:
-`mvn spring-boot:run -Dspring.profiles.active=prod`.
+`./mvnw  spring-boot:run -Dspring.profiles.active=prod`.
 
 #### Remoto
 
@@ -64,10 +64,10 @@ através do host: `raul-beer-application.herokuapp.com`. Onde poderá
 fazer os requests disponíveis. Por exemplo: 
 - https://raul-beer-application.herokuapp.com/beer-styles
 
-#### Considerações
+### Considerações
 
 Já existe uma base de estilos de cerveja persistida no mongo
-remoto basta consultar o link citado na sessão de como realizar o build
+remoto, basta consultar o link citado na sessão de como realizar o build
 remotamente.
 
 São poucos os estilos de cerveja que contém seu nome na playlist,
