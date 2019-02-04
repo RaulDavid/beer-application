@@ -22,6 +22,8 @@ import static org.springframework.http.HttpStatus.OK;
 @RestController
 public class BeerStyleController {
 
+    private static final String ERROR_MAPPING_BEER_STYLE_DTO_MESSAGE = "error mapping beer style dto, message={}";
+
     private final BeerStyleService service;
 
     public BeerStyleController(BeerStyleService service) {
@@ -33,7 +35,7 @@ public class BeerStyleController {
     public Flux<BeerStyleDto> getAll() {
         return service.getAll()
                 .map(BeerStyleDto::beerStyleDtoOf)
-                .doOnError(e -> log.error("error mapping beer style dto, message={}", e.getMessage()));
+                .doOnError(e -> log.error(ERROR_MAPPING_BEER_STYLE_DTO_MESSAGE, e.getMessage()));
     }
 
     @ResponseStatus(OK)
@@ -41,7 +43,7 @@ public class BeerStyleController {
     public Mono<BeerStyleDto> getById(@PathVariable String id) {
         return service.getById(id)
                 .map(BeerStyleDto::beerStyleDtoOf)
-                .doOnError(e -> log.error("error mapping beer style dto, message={}", e.getMessage()));
+                .doOnError(e -> log.error(ERROR_MAPPING_BEER_STYLE_DTO_MESSAGE, e.getMessage()));
     }
 
     @ResponseStatus(CREATED)
@@ -50,7 +52,7 @@ public class BeerStyleController {
         var beerStyle = beerStyleDto.toBeerStyle();
         return service.create(beerStyle)
                 .map(BeerStyleDto::beerStyleDtoOf)
-                .doOnError(e -> log.error("error mapping beer style dto, message={}", e.getMessage()));
+                .doOnError(e -> log.error(ERROR_MAPPING_BEER_STYLE_DTO_MESSAGE, e.getMessage()));
     }
 
     @ResponseStatus(OK)
@@ -59,7 +61,7 @@ public class BeerStyleController {
         var beerStyle = beerStyleDto.toBeerStyle();
         return service.updateById(id, beerStyle)
                 .map(BeerStyleDto::beerStyleDtoOf)
-                .doOnError(e -> log.error("error mapping beer style dto, message={}", e.getMessage()));
+                .doOnError(e -> log.error(ERROR_MAPPING_BEER_STYLE_DTO_MESSAGE, e.getMessage()));
     }
 
     @ResponseStatus(NO_CONTENT)
