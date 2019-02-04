@@ -13,27 +13,23 @@ import reactor.core.publisher.Mono;
 
 import java.io.IOException;
 
+import static com.api.duff.config.SpotifyApiConfig.buildSpotifyApiAccess;
 import static java.util.Arrays.asList;
 
 @Slf4j
 @Component
 public class SpotifyClient {
 
-    private SpotifyApi spotifyApi;
-
-    public SpotifyClient(SpotifyApi spotifyApi) {
-        this.spotifyApi = spotifyApi;
-    }
-
     public Mono<Playlist> getPlaylistByName(String name) {
-        return findByName(name)
+        var spotifyApi = buildSpotifyApiAccess();
+        return findByName(name, spotifyApi)
                 .flatMap(playlistSimplified ->
-                        getTracks(playlistSimplified)
+                        getTracks(playlistSimplified, spotifyApi)
                                 .map(tracks -> buildPlaylist(tracks, playlistSimplified.getName()))
                 );
     }
 
-    private Mono<PlaylistSimplified> findByName(String name) {
+    private Mono<PlaylistSimplified> findByName(String name, SpotifyApi spotifyApi) {
         try {
             return Flux.fromIterable(asList(spotifyApi.searchPlaylists(name)
                     .limit(1)
@@ -47,10 +43,10 @@ public class SpotifyClient {
         }
     }
 
-    private Mono<Paging<PlaylistTrack>> getTracks(PlaylistSimplified simplified) {
+    private Mono<Paging<PlaylistTrack>> getTracks(PlaylistSimplified simplified, SpotifyApi spotifyApi) {
         try {
             return Mono.just(spotifyApi.getPlaylistsTracks(simplified.getId())
-                    .limit(100)
+                    .limit(10)
                     .build()
                     .execute());
         } catch (IOException | SpotifyWebApiException e) {
