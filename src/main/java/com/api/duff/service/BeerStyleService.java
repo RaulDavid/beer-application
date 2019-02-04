@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
+import static com.api.duff.error.Errors.beerStyleAlreadyExists;
 import static com.api.duff.error.Errors.beerStyleNotFound;
 
 @Slf4j
@@ -33,7 +34,9 @@ public class BeerStyleService {
 
     public Mono<BeerStyle> create(BeerStyle beerStyle) {
         log.info("creating beer style, beerStyle={}", beerStyle);
-        return repository.save(beerStyle)
+        return repository.findByName(beerStyle.getName())
+                .hasElement()
+                .flatMap(hasElemet -> hasElemet ? beerStyleAlreadyExists() : repository.save(beerStyle))
                 .doOnError(e -> log.error("error saving beerStyle, beerStyle={}, message={}", beerStyle, e.getMessage()));
     }
 

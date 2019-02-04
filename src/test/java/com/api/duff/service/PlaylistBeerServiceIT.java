@@ -1,7 +1,8 @@
 package com.api.duff.service;
 
 import com.api.duff.DuffApplicationTests;
-import com.api.duff.exception.NotFoundException;
+import com.api.duff.exception.PlaylistBeerDifferentNameException;
+import com.api.duff.exception.PlaylistBeerNotFoundException;
 import com.api.duff.repository.BeerStyleRepository;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.DisplayName;
@@ -12,6 +13,8 @@ import java.util.List;
 
 import static com.api.duff.domain.BeerStyle.beerStyleOf;
 import static com.api.duff.error.Errors.PLAYLIST_BEER_NOT_CONTAINS_BEER_STYLE_NAME;
+import static com.api.duff.error.Errors.PLAYLIST_BEER_NOT_FOUND;
+import static java.util.UUID.randomUUID;
 import static org.apache.commons.lang3.StringUtils.containsIgnoreCase;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -49,13 +52,26 @@ class PlaylistBeerServiceIT extends DuffApplicationTests {
     }
 
     @Test
-    @DisplayName("should throw not found when not exist playlist that contains beer style name and checkName is true")
+    @DisplayName("throw playlist beer not found when not exist playlist")
+    void shouldNotFoundOnFindByTemperature() {
+        var name = randomUUID().toString();
+        var beerStyle1 = beerStyleOf(name, 12, 6);
+        repository.save(beerStyle1).block();
+
+        var notFoundException = assertThrows(
+                PlaylistBeerNotFoundException.class,
+                () -> service.findByTemperature(3, true).block());
+        assertEquals(PLAYLIST_BEER_NOT_FOUND, notFoundException.getMessage());
+    }
+
+    @Test
+    @DisplayName("throw exception when not exist playlist that contains beer style name and checkName is true")
     void shouldNotFoundOnFindByTemperatureCheckNameTrue() {
         var beerStyle1 = beerStyleOf("rock pop 123", 12, 6);
         repository.save(beerStyle1).block();
 
         var notFoundException = assertThrows(
-                NotFoundException.class,
+                PlaylistBeerDifferentNameException.class,
                 () -> service.findByTemperature(3, true).block());
         assertEquals(PLAYLIST_BEER_NOT_CONTAINS_BEER_STYLE_NAME, notFoundException.getMessage());
     }

@@ -3,13 +3,12 @@ package com.api.duff.service;
 import com.api.duff.client.SpotifyClient;
 import com.api.duff.domain.BeerStyle;
 import com.api.duff.domain.PlaylistBeer;
-import com.api.duff.exception.NotFoundException;
+import com.api.duff.exception.PlaylistBeerDifferentNameException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Mono;
 
 import static com.api.duff.domain.PlaylistBeer.playlistBeerOf;
-import static com.api.duff.error.Errors.PLAYLIST_BEER_NOT_CONTAINS_BEER_STYLE_NAME;
 import static com.api.duff.error.Errors.playlistBeerNotFound;
 import static org.apache.commons.lang3.StringUtils.containsIgnoreCase;
 
@@ -44,7 +43,7 @@ public class PlaylistBeerService {
         var playlistName = playlistBeer.getPlaylist().getName();
         var beerStyleName = playlistBeer.getBeerStyle().getName();
         if (checkNameParam && !containsIgnoreCase(playlistName, beerStyleName)) {
-            throw new NotFoundException(PLAYLIST_BEER_NOT_CONTAINS_BEER_STYLE_NAME);
+            throw new PlaylistBeerDifferentNameException();
         }
     }
 }

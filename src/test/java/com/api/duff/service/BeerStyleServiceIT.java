@@ -2,7 +2,8 @@ package com.api.duff.service;
 
 import com.api.duff.DuffApplicationTests;
 import com.api.duff.domain.BeerStyle;
-import com.api.duff.exception.NotFoundException;
+import com.api.duff.exception.BeerStyleConflictException;
+import com.api.duff.exception.BeerStyleNotFoundException;
 import com.api.duff.repository.BeerStyleRepository;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.DisplayName;
@@ -12,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import java.util.List;
 
 import static com.api.duff.domain.BeerStyle.beerStyleOf;
+import static com.api.duff.error.Errors.BEER_STYLE_CONFLICT;
 import static com.api.duff.error.Errors.BEER_STYLE_NOT_FOUND;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -53,7 +55,7 @@ class BeerStyleServiceIT extends DuffApplicationTests {
     @DisplayName("should throw not found exception when get all beer styles and don't have any")
     void shouldThrowNotFoundOnGetAll() {
         var notFoundException = assertThrows(
-                NotFoundException.class,
+                BeerStyleNotFoundException.class,
                 () -> service.getAll().blockFirst());
         assertEquals(BEER_STYLE_NOT_FOUND, notFoundException.getMessage());
     }
@@ -73,6 +75,22 @@ class BeerStyleServiceIT extends DuffApplicationTests {
         assertEquals(beerStyle, savedBeerStyle);
         assertEquals(beerStyle.getMaxTemperature(), savedBeerStyle.getMaxTemperature());
         assertEquals(beerStyle.getMinTemperature(), savedBeerStyle.getMinTemperature());
+    }
+
+    @Test
+    @DisplayName("should throw conflict exception when try create beer style with a name that already exists")
+    void createThrowConflict() {
+        //given
+        var beerStyle = beerStyleOf("name1", 10, -5);
+        repository.save(beerStyle).block();
+
+        //when
+        var conflictException = assertThrows(
+                BeerStyleConflictException.class,
+                () -> service.create(beerStyle).block());
+
+        //then
+        assertEquals(BEER_STYLE_CONFLICT, conflictException.getMessage());
     }
 
     @Test
@@ -102,7 +120,7 @@ class BeerStyleServiceIT extends DuffApplicationTests {
 
         //when
         var notFoundException = assertThrows(
-                NotFoundException.class,
+                BeerStyleNotFoundException.class,
                 () -> service.updateById("1", beerStyleUpdate).block());
 
         //then
@@ -147,7 +165,7 @@ class BeerStyleServiceIT extends DuffApplicationTests {
     @DisplayName("should throw not found exception when try find beer styles by temperature and don't have any")
     void shouldThrowNotFoundOnFindByTemperature() {
         var notFoundException = assertThrows(
-                NotFoundException.class,
+                BeerStyleNotFoundException.class,
                 () -> service.findByCloserAvgTemperature(12).block());
         assertEquals(BEER_STYLE_NOT_FOUND, notFoundException.getMessage());
     }
