@@ -1,3 +1,4 @@
+[![Build Status](https://travis-ci.org/RaulDavid/beer-application.svg?branch=master)](https://travis-ci.org/RaulDavid/beer-application)
 # beer-application
 ### Tecnologias utiltizadas
 
