@@ -11,6 +11,7 @@
 - MongoDB (flapdoodle testes e mLab remoto)
 - Heroku
 - Docker
+- Travis CI
 
 Obs: Para uma melhor leitura do código utilizando Lombok
 recomendo que seja instalado um plugin para sua IDE.
